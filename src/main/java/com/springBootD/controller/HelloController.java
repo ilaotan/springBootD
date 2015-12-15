@@ -1,11 +1,12 @@
 package com.springBootD.controller;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.springBootD.config.ConnectionConfig;
 
 /**
  * Created by wenchao.ren on 2014/4/26.
@@ -13,6 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloController {
  
+	@Value("${name}")
+	private String testName;
+	@Value("${random.int}")
+	private Integer testInt;
+	@Autowired
+	private ConnectionConfig cc;
+	
 	 @RequestMapping(value ="/", method = RequestMethod.GET)
 	    public String index(){
 	        return "this is index";
@@ -20,6 +28,7 @@ public class HelloController {
 	
     @RequestMapping(value ="/hello", method = RequestMethod.GET)
     public String hello(){
-        return "hello world";
+    	System.out.println(cc.getUsername());
+        return "hello world4"+testName+testInt;
     }
 }
