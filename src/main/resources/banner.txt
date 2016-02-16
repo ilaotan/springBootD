@@ -1,0 +1,2 @@
+spring boot 开始跑起来了
+${spring-boot.formatted-version}

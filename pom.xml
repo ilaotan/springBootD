@@ -13,34 +13,57 @@
 		<java.version>1.7</java.version>
 		<tomcat.version>7.0.65</tomcat.version>
 	</properties>
-	
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.3.1.RELEASE</version>
+		<version>1.3.2.RELEASE</version>
 	</parent>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<!-- websocket-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-websocket</artifactId>
+		</dependency>
+
+		<!-- 使用log4j-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j</artifactId>
+		</dependency>
+
 		<!-- 1.3特有的 When devtools is running, it detects change when you recompile your application and automatically refreshes -->
 		 <dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-devtools</artifactId>
 		    <optional>true</optional>
-		  </dependency>
-		<!-- 模板引擎 -->
+		 </dependency>
+
 		<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-        <!--  -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
-        </dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- 使用tomcat -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- servlet 相关 -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
 		<!-- for test -->
 		<dependency>
             <groupId>org.springframework.boot</groupId>
@@ -48,34 +71,31 @@
             <scope>test</scope>
         </dependency>
 		<dependency>
-			<groupId>org.testng</groupId>
-			<artifactId>testng</artifactId>
-			<version>6.8.13</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-configuration-processor</artifactId>
-			<optional>true</optional>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 	<build>
 	  <finalName>springBootD</finalName>
 	   <plugins>
 	   <!-- spring-boot-maven-plugin提供了直接运行项目的插件，我们可以直接mvn spring-boot:run运行。 -->
-	      <plugin>  
-	          <groupId>org.springframework.boot</groupId>  
-	          <artifactId>spring-boot-maven-plugin</artifactId>  
-	      </plugin>  
-	  </plugins>  
+	      <plugin>
+	          <groupId>org.springframework.boot</groupId>
+	          <artifactId>spring-boot-maven-plugin</artifactId>
+	      </plugin>
+		   <plugin>
+			   <groupId>org.apache.maven.plugins</groupId>
+			   <artifactId>maven-surefire-plugin</artifactId>
+			   <configuration>
+				   <useSystemClassLoader>false</useSystemClassLoader>
+			   </configuration>
+		   </plugin>
+	  </plugins>
 	</build>
     <!-- 中央仓库 使用maven官方跟开源中国的库 -->
 	<repositories>
-		<repository>
-			<id>maven-repo2</id>
-			<name>maven-repo2</name>
-			<layout>default</layout>
-			<url>http://repo2.maven.org/maven2/</url>
-		</repository>
 		<repository>
 			<id>oschina Releases</id>
 			<name>oschina Releases</name>
@@ -83,11 +103,6 @@
 		</repository>
 	</repositories>
 	<pluginRepositories>
-		<pluginRepository>
-			<id>maven2-repo</id>
-			<name>maven2 Repository</name>
-			<url>http://repo2.maven.org/maven2/</url>
-		</pluginRepository>
 		<pluginRepository>
 			<id>oschina Releases</id>
 			<name>oschina Releases</name>
