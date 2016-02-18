@@ -146,7 +146,8 @@ public class ShiroConfig{
         filterChainDefinitionMapping.put("/system/login", "authc");
         filterChainDefinitionMapping.put("/system/**", "systemPermissions");
         filterChainDefinitionMapping.put("/front/**", "anon");
-        filterChainDefinitionMapping.put("/**", "systemPermissions");
+        filterChainDefinitionMapping.put("/**", "anon");
+        //filterChainDefinitionMapping.put("/**", "systemPermissions");
         shiroFilter.setFilterChainDefinitionMap(filterChainDefinitionMapping);
 
         Map<String, Filter> filters = new HashMap<String, Filter>();

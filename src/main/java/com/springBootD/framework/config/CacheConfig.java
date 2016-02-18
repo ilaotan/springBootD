@@ -1,31 +1,35 @@
 package com.springBootD.framework.config;
 
-import java.util.Arrays;
-
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.cache.Cache;
-import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.cache.concurrent.ConcurrentMapCache;
-import org.springframework.cache.support.SimpleCacheManager;
+import org.springframework.cache.ehcache.EhCacheCacheManager;
+import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 
 
 //配置应用的cacheManager，不与shiro-web.xml中的cacheManager重名而冲突。
 @Configuration
 @EnableCaching
-@EnableAutoConfiguration
 public class CacheConfig {
 
+	/*
+ * 据shared与否的设置,Spring分别通过CacheManager.create()或new CacheManager()方式来创建一个ehcache基地.
+ */
 	@Bean
-	public CacheManager cacheManager() {
-
-		Cache cache = new ConcurrentMapCache("byUsername");
-
-		SimpleCacheManager manager = new SimpleCacheManager();
-		manager.setCaches(Arrays.asList(cache));
-
-		return manager;
+	public EhCacheManagerFactoryBean cacheManagerFactory(){
+		EhCacheManagerFactoryBean cacheManagerFactoryBean = new EhCacheManagerFactoryBean ();
+		cacheManagerFactoryBean.setConfigLocation (new ClassPathResource("ehcache.xml"));
+		cacheManagerFactoryBean.setShared (true);
+		return cacheManagerFactoryBean;
 	}
+
+	/*
+  * ehcache 主要的管理器
+  */
+	@Bean(name = "cacheManager")
+	public EhCacheCacheManager ehCacheCacheManager(){
+		return new EhCacheCacheManager (cacheManagerFactory().getObject ());
+	}
+
 }

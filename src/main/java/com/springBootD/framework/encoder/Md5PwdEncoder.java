@@ -1,4 +1,4 @@
-package com.springBootD.framework.utils;
+package com.springBootD.framework.encoder;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;

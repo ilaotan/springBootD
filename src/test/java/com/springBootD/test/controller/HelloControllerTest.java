@@ -1,6 +1,6 @@
 package com.springBootD.test.controller;
 
-import com.springBootD.controller.HelloRESTController;
+import com.springBootD.application.system.controller.HelloRESTController;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

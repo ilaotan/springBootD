@@ -1,4 +1,4 @@
-package com.springBootD.controller;
+package com.springBootD.application.system.controller;
 
 import com.springBootD.framework.config.CacheConfig;
 import com.springBootD.framework.config.ConnectionConfig;

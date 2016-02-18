@@ -1,4 +1,4 @@
-package com.springBootD.controller;
+package com.springBootD.application.system.controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
