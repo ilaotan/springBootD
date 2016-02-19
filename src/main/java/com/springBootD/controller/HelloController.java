@@ -2,9 +2,8 @@ package com.springBootD.controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 
 /**
@@ -18,7 +17,9 @@ public class HelloController {
 
 
 	@RequestMapping(value = "/helloJsp")
-	public ModelAndView helloJsp() {
-		return new ModelAndView("welcome", "message","12345");
+	//@ResponseBody  //加上这个后 返回的是字符串"welcome"而不是视图
+	public String helloJsp(Model model) {
+		model.addAttribute("message","12345");
+		return "welcome";
 	}
 }
