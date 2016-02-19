@@ -24,10 +24,13 @@ public class Application extends SpringBootServletInitializer {
 
     public static void main(String[] args) throws Exception {
         SpringApplication.run(Application.class, args);
-//        SpringApplication app = new SpringApplication(Application.class);
-//        //启动时的提示文字
-//        app.setBannerMode(Banner.Mode.OFF);
-//        app.run(args);
     }
+
+    //public static void main(String[] args) throws Exception {
+    //    SpringApplication app = new SpringApplication(Application.class);
+    //    //启动时的提示文字
+    //    app.setBannerMode(Banner.Mode.OFF);
+    //    app.run(args);
+    //}
 
 }
