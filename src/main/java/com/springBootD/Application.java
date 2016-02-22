@@ -8,6 +8,9 @@ import org.springframework.boot.context.web.SpringBootServletInitializer;
 @SpringBootApplication
 public class Application extends SpringBootServletInitializer {
 
+    /*
+    * 如果不继承SpringBootServletInitializer 并覆盖configure 就不能直接扔到tomcat里运行
+    * */
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(Application.class);
