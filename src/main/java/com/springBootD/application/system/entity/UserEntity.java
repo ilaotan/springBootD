@@ -8,6 +8,7 @@
 
 package com.springBootD.application.system.entity;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,10 +16,16 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="user")
 public class UserEntity extends BaseEntity {
+
+	//@Temporal(TemporalType.TIMESTAMP)
+	//private Date startDate;
+
 	//用户名
 	private String name;
 	
@@ -34,10 +41,10 @@ public class UserEntity extends BaseEntity {
 	private String password;
 	
 	//地址信息
-	@OneToMany(mappedBy="user",cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="user",cascade=CascadeType.ALL) //mappedBy="user" 表示用AddressEntity里的user字段维护关系
 	private List<AddressEntity> addresses = new LinkedList<AddressEntity>();
 	
-	@OneToMany(mappedBy="blongUser")
+	@OneToMany(mappedBy="blongUser")//mappedBy="blongUser" 表示用BlogEntity里的blongUser字段维护关系
 	private List<BlogEntity> blogs = new LinkedList<BlogEntity>();
 
 	public int getSex() {

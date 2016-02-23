@@ -27,7 +27,7 @@ public class AddressEntity extends BaseEntity {
 	private String province;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="user_id")
+	@JoinColumn(name="user_id")  //这个user_id是属于address的列
 	private UserEntity user;
 	
 	public String getAddress() {
