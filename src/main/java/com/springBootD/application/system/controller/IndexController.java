@@ -1,10 +1,3 @@
-/*
- * Copyright (c) 2016. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
- * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
- * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
- * Vestibulum commodo. Ut rhoncus gravida arcu.
- */
 
 package com.springBootD.application.system.controller;
 
@@ -26,8 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * 
- * @author lance
- * 2014-6-8下午6:47:18
  */
 @Controller
 public class IndexController {
@@ -39,8 +30,6 @@ public class IndexController {
 	
 	/**
 	 * 跳转登录页面
-	 * @author lance
-	 * 2014-6-8下午6:49:40
 	 * @return
 	 */
 	@RequestMapping(value={"login","/"},method=RequestMethod.GET)
@@ -50,10 +39,6 @@ public class IndexController {
 	
 	/**
 	 * 登录成功后跳转页面
-	 * @author lance
-	 * 2014-6-8下午6:50:47
-	 * @param name
-	 * @param password
 	 * @return
 	 */
 	@RequestMapping(value="login",method=RequestMethod.POST)
@@ -73,8 +58,6 @@ public class IndexController {
 	
 	/**
 	 * 测试拦截器
-	 * @param name
-	 * @param password
 	 * @return
 	 */
 	@RequestMapping("user/home")

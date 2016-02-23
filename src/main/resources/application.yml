@@ -15,6 +15,7 @@ logging:
 spring:
     jpa:
         hibernate:
+            #允许在数据库中表不存在情况下,hibernate根据Entity中的关系,创建数据库表
             ddl-auto: update
         show-sql: true
     datasource:
