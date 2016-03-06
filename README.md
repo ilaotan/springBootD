@@ -1,1 +1,3 @@
-# 其他分支有隐藏属性
+# springBoot的练习之作
+
+其他分支包含 shiro  mybatis 等的集成例子
