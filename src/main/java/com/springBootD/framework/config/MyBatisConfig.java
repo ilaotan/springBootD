@@ -61,7 +61,7 @@ public class MyBatisConfig implements TransactionManagementConfigurer {
     public SqlSessionFactory sqlSessionFactoryBean() {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
-        bean.setTypeAliasesPackage("com.springBootD.application.**.model");
+        bean.setTypeAliasesPackage("com.springBootD.application.system.model");
 
         //分页插件
         PageHelper pageHelper = new PageHelper();
@@ -78,7 +78,9 @@ public class MyBatisConfig implements TransactionManagementConfigurer {
         //添加XML目录
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         try {
-            bean.setMapperLocations(resolver.getResources("classpath:com/*Mapper.xml"));
+            //bean.setMapperLocations(resolver.getResources("classpath:mapper/*.xml"));
+            bean.setMapperLocations(resolver.getResources("classpath:com/springBootD/application/**/*Mapper.xml"));
+            //bean.setMapperLocations(resolver.getResources("classpath:com/*Mapper.xml"));
             return bean.getObject();
         } catch (Exception e) {
             e.printStackTrace();
