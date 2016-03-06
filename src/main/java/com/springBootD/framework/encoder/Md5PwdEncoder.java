@@ -92,10 +92,10 @@ public class Md5PwdEncoder {
 		this.defaultSalt = defaultSalt;
 	}
 	
-	public static void main(String[] args) throws Exception{
-		String password = "NH-BLHG4a181453b8786f8e2e7f2a5ab7e4236ca";
-		String p2 = Md5PwdEncoder.encodePassword(password, "");
-		String md5 = Md5PwdEncoder.encodePassword(password, "NH-BLHG4");
-		System.out.println(p2);
-	}
+	//public static void main(String[] args) throws Exception{
+	//	String password = "NH-BLHG4a181453b8786f8e2e7f2a5ab7e4236ca";
+	//	String p2 = Md5PwdEncoder.encodePassword(password, "");
+	//	String md5 = Md5PwdEncoder.encodePassword(password, "NH-BLHG4");
+	//	System.out.println(p2);
+	//}
 }

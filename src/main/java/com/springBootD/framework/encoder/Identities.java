@@ -63,12 +63,12 @@ public class Identities {
 		return password;
 	}
 	
-	public static void main(String[] args){
-		String id = Identities.uuid();
-		String id2 = Identities.uuid2();
-		System.out.println(id);
-		System.out.println(id2);
-		System.out.println(Identities.randomLong());
-		System.out.println(Identities.randomBase62(8));
-	}
+	//public static void main(String[] args){
+	//	String id = Identities.uuid();
+	//	String id2 = Identities.uuid2();
+	//	System.out.println(id);
+	//	System.out.println(id2);
+	//	System.out.println(Identities.randomLong());
+	//	System.out.println(Identities.randomBase62(8));
+	//}
 }
