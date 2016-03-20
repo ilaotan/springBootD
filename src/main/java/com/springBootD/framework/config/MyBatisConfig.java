@@ -33,6 +33,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -61,25 +62,27 @@ public class MyBatisConfig implements TransactionManagementConfigurer {
     public SqlSessionFactory sqlSessionFactoryBean() {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
-        bean.setTypeAliasesPackage("com.springBootD.application.system.model");
+        ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
 
-        //分页插件
-        PageHelper pageHelper = new PageHelper();
-        Properties properties = new Properties();
-        properties.setProperty("reasonable", "true");
-        properties.setProperty("supportMethodsArguments", "true");
-        properties.setProperty("returnPageInfo", "check");
-        properties.setProperty("params", "count=countSql");
-        pageHelper.setProperties(properties);
+        bean.setConfigLocation(resolver.getResource("classpath:mybatis-config.xml"));
 
-        //添加插件
-        bean.setPlugins(new Interceptor[]{pageHelper});
+        //bean.setTypeAliasesPackage("com.springBootD.application.system.model");
+        ////分页插件
+        //PageHelper pageHelper = new PageHelper();
+        //Properties properties = new Properties();
+        //properties.setProperty("reasonable", "true");
+        //properties.setProperty("supportMethodsArguments", "true");
+        //properties.setProperty("returnPageInfo", "check");
+        //properties.setProperty("params", "count=countSql");
+        //pageHelper.setProperties(properties);
+        //
+        ////添加插件
+        //bean.setPlugins(new Interceptor[]{pageHelper});
 
         //添加XML目录
-        ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         try {
             //bean.setMapperLocations(resolver.getResources("classpath:mapper/*.xml"));
-            bean.setMapperLocations(resolver.getResources("classpath:com/springBootD/application/**/*Mapper.xml"));
+            //bean.setMapperLocations(resolver.getResources("classpath:com/springBootD/application/**/*Mapper.xml"));
             //bean.setMapperLocations(resolver.getResources("classpath:com/*Mapper.xml"));
             return bean.getObject();
         } catch (Exception e) {
