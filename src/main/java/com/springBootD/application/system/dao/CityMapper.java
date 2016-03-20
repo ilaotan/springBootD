@@ -28,8 +28,6 @@ import com.springBootD.application.system.model.City;
 import com.springBootD.framework.mybatis.MyMapper;
 
 /**
- * @author liuzh_3nofxnp
- * @since 2016-01-22 22:17
  */
 public interface CityMapper extends MyMapper<City> {
 }

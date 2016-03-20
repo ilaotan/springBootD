@@ -28,12 +28,12 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 /**
- * @author liuzh_3nofxnp
- * @since 2016-01-22 22:16
  */
+@Table(name="city")
 public class City {
 
     @Id

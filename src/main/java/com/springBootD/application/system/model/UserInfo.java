@@ -28,14 +28,13 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 /**
  * 用户信息
- *
- * @author liuzh
- * @since 2016-01-31 21:39
  */
+@Table(name="userinfo")
 public class UserInfo{
     @Id
     @Column(name = "Id")
