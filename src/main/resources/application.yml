@@ -33,10 +33,10 @@ spring:
         testOnReturn: false
         poolPreparedStatements: true
         maxOpenPreparedStatements: 20
-    mvc:
-        view:
-            prefix: /WEB-INF/jsp/
-            suffix: .jsp
+#    mvc:
+#        view:
+#            prefix: /WEB-INF/jsp/
+#            suffix: .jsp
 
 #以下属性不可用
 #mybatis:

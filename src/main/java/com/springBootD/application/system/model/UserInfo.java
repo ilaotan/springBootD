@@ -41,6 +41,7 @@ public class UserInfo{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    // 忽略
     @Transient
     private Integer page = 1;
 
