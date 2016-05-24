@@ -14,7 +14,7 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 @EnableScheduling
 @EnableAutoConfiguration
 @ComponentScan("com.springBootD")
-@EntityScan("com.springBootD.application.system.entity")
+@EntityScan(basePackages="com.springBootD.application.system.entity")
 @EnableJpaRepositories("com.springBootD.application.system.dao")
 public class Application extends SpringBootServletInitializer {
 
