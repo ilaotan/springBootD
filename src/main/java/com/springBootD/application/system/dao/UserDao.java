@@ -21,4 +21,6 @@ public interface UserDao extends JpaRepository<UserEntity, Long>{
 	 * @return
 	 */
 	UserEntity findByEmail(String email);
+
+	UserEntity findByEmailLike(String email);
 }
