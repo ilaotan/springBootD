@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-public class HelloController {
+public class HelloController2 {
 
 	@Value("${application.message:Hello World}")
 	private String message = "Hello World";
