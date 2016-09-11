@@ -1,7 +1,7 @@
 package com.springBootD.test.service;
 
 import com.springBootD.Application;
-import com.springBootD.wx.service.WxService;
+import com.springBootD.wx.service.WebWxServiceTan;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +17,12 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 public class WxTest {
-@Autowired
-    private WxService wxService;
-
+    @Autowired
+    private WebWxServiceTan webWxServiceTan;
 
     @Test
     public void testSend(){
-//        wxService.getAllFans();
+        webWxServiceTan.login();
 
-        wxService.sendMsgToSingleFan2("oQRPtt5DB0ZCAXiPPzUYGaQvMvA0","hello");
     }
 }
