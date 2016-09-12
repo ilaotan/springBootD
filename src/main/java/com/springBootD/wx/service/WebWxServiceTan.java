@@ -3,7 +3,7 @@ package com.springBootD.wx.service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Maps;
-import com.springBootD.wx.kit.HttpClientKit;
+import com.springBootD.wx.kit.HttpClientKitNew;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -55,7 +55,7 @@ public class WebWxServiceTan {
         params.put("lang","zh_CN");
         params.put("_",new Date().getTime()+"");
 
-        String res = HttpClientKit.doGet(jsLoginUrl,params);
+        String res = HttpClientKitNew.doGet(jsLoginUrl,params);
         Pattern p=Pattern.compile("window.QRLogin.code = (\\d+); window.QRLogin.uuid = \"(\\S+?)\";");
         Matcher m=p.matcher(res);
         String returnStr="";
@@ -68,7 +68,7 @@ public class WebWxServiceTan {
 
     private void getQrcode(String uuid,String filePath){
         String url = qrUrl+uuid;
-        HttpClientKit.doGetFile(url,null,filePath);
+        HttpClientKitNew.doGetFile(url,null,filePath);
     }
 
 
@@ -79,11 +79,16 @@ public class WebWxServiceTan {
         params.put("tip","0");
         params.put("_",new Date().getTime()+"");
 
-        String res = HttpClientKit.doGet(checkQrLogin,params);
+        String res = HttpClientKitNew.doGet(checkQrLogin,params);
         return res;
     }
 
     private void setAfterLoginVal(String res){
+        if(StringUtils.isBlank(res)){
+            logger.error("登陆成功拿到的值为空");
+            return;
+        }
+        logger.info("登录最后一步 解析xml:  "+res);
         res = "<?xml version=\"1.0\" encoding=\"UTF-8\"?> "+res;
         try {
             Document document = DocumentHelper.parseText(res);
@@ -102,7 +107,7 @@ public class WebWxServiceTan {
             }
 
             baseRequest.put("Skey",Skey);
-            baseRequest.put("Sid",Skey);
+            baseRequest.put("Sid",Sid);
             baseRequest.put("Uin",Uin);
             baseRequest.put("DeviceID",DeviceID);
         } catch (DocumentException e) {
@@ -150,7 +155,7 @@ public class WebWxServiceTan {
                     logger.error("正则截取出错2222");
                 }
                 logger.info("成功后需redirect的地址是:"+res);
-                setAfterLoginVal(HttpClientKit.doGetAndNoRedirectSaveCookie(res,null));
+                setAfterLoginVal(HttpClientKitNew.doGetAndNoRedirect(res,null));
                 break;
             }else if(code.equals("201")){
                 logger.info("扫码成功,等待手机端确认ing..... 睡一秒");
@@ -177,27 +182,43 @@ public class WebWxServiceTan {
         StringEntity entity = new StringEntity(JSON.toJSONString(map),"utf-8");//解决中文乱码问题
 
         String wewxIntUrl = "https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxinit?r="+new Date().getTime()+"&pass_ticket="+DeviceID;
-        String res3 = HttpClientKit.doPost(wewxIntUrl,entity);
-        System.out.println(res3);
+        String res3 = HttpClientKitNew.doPost(wewxIntUrl,entity);
+        String myselfUserName="";
         if(StringUtils.isNotBlank(res3)){
             JSONObject userInfo = JSON.parseObject(res3);
             JSONObject user = userInfo.getJSONObject("User");
-            System.out.println(user.getString("UserName"));
+            myselfUserName = user.getString("UserName");
         }
 
         String sendMsgUrl = "https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxsendmsg";
         Map msgMap = Maps.newHashMap();
+        Date now = new Date();
         msgMap.put("Type",1);
         msgMap.put("Content","你好 大傻逼");
-        msgMap.put("FromUserName","@cebf84435a266ae1ca1f1151d50a8693");
-        msgMap.put("ToUserName","@cebf84435a266ae1ca1f1151d50a8693");
-        msgMap.put("LocalID",new Date().getTime());
-        msgMap.put("ClientMsgId",new Date().getTime());
+        msgMap.put("FromUserName",myselfUserName);
+        msgMap.put("ToUserName",myselfUserName);
+        msgMap.put("LocalID",now);
+        msgMap.put("ClientMsgId",now);
 
         map.put("Msg",msgMap);
+        map.put("Scene",0);
 
-        String resdd = HttpClientKit.doPost(sendMsgUrl,new StringEntity(JSON.toJSONString(map),"utf-8"));
-        System.out.println("傻逼了吗"+resdd);
+//        System.out.println(JSON.toJSONString(map));
+
+        String resdd = HttpClientKitNew.doPost(sendMsgUrl,new StringEntity(JSON.toJSONString(map),"utf-8"));
+//        System.out.println("傻逼了吗"+resdd);
+
+
+        //
+        String allUserUrl = "https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxgetcontact";
+        Map<String,String> allUserParam = Maps.newHashMap();
+        allUserParam.put("r",now.getTime()+"");
+        allUserParam.put("seq",0+"");
+        allUserParam.put("skey",this.Skey);
+
+
+        String allUserStr = HttpClientKitNew.doGet(allUserUrl,allUserParam);
+        System.out.println(""+allUserStr);
 
     }
 

@@ -1,16 +1,17 @@
 package com.springBootD.wx.kit;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.apache.http.*;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.CookieStore;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.AuthSchemes;
 import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
@@ -21,12 +22,11 @@ import org.apache.http.conn.socket.PlainConnectionSocketFactory;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.cookie.Cookie;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.*;
+import org.apache.http.impl.client.BasicCookieStore;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
-import org.apache.http.impl.cookie.BasicClientCookie;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.BasicHttpContext;
-import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 
@@ -41,15 +41,40 @@ import java.util.*;
  *  本工具类的初衷是学习httpClient 4.5 系列最新版的使用姿势
  *
  */
-public class HttpClientKit {
+public class HttpClientKitNew {
 
     private static CookieStore cookieStore = new BasicCookieStore();
 
+    private static HttpClientContext context  = HttpClientContext.create();
+
     private static String charset = "UTF8";
+
+
 
     private static CloseableHttpClient httpClient_;
 
     public static CloseableHttpClient instance() {
+        System.setProperty ("jsse.enableSNIExtension", "false");    //防止https请求出错  see: //http://stackoverflow.com/questions/7615645/ssl-handshake-alert-unrecognized-name-error-since-upgrade-to-java-1-7-0
+        context.setCookieStore(cookieStore);
+
+        httpClient_ = HttpClients.custom()
+//                .setConnectionManager(createDefaultConnectionManager())
+                .setDefaultRequestConfig(createDefaultRequestConfig())
+                .setDefaultCookieStore(cookieStore)
+                .build();
+        return httpClient_;
+    }
+
+    public static CloseableHttpClient instanceNoRedirect() {
+        System.setProperty ("jsse.enableSNIExtension", "false");    //防止https请求出错  see: //http://stackoverflow.com/questions/7615645/ssl-handshake-alert-unrecognized-name-error-since-upgrade-to-java-1-7-0
+        context.setCookieStore(cookieStore);
+
+        httpClient_ = HttpClients.custom()
+//                .setConnectionManager(createDefaultConnectionManager())
+                .setDefaultRequestConfig(createDefaultRequestConfig())
+                .setDefaultCookieStore(cookieStore)
+                .disableRedirectHandling()
+                .build();
         return httpClient_;
     }
 
@@ -70,13 +95,13 @@ public class HttpClientKit {
         }
 
 //        CloseableHttpClient httpclient = HttpClients.createDefault();
-        CloseableHttpClient httpclient = HttpClientKit.instance();
+        CloseableHttpClient httpclient = HttpClientKitNew.instance();
 //        CloseableHttpClient httpclient = HttpClientBuilder.create().setDefaultCookieStore(cookieStore).build();
 
         String res="";
         try {
             HttpGet httpGet = new HttpGet(builder.build());
-            CloseableHttpResponse response = httpclient.execute(httpGet);
+            CloseableHttpResponse response = httpclient.execute(httpGet,context);
             res= getResponse(response);
             closeResponse(response);
             return res;
@@ -88,7 +113,7 @@ public class HttpClientKit {
         return res;
     }
 
-    public static String doGetAndSaveCookie(String url, Map<String,String> params){
+    public static String doGetAndNoRedirect(String url, Map<String,String> params){
 
         URIBuilder builder = null;
         try {
@@ -105,54 +130,12 @@ public class HttpClientKit {
         }
 
 //        CloseableHttpClient httpclient = HttpClients.createDefault();
-//        CloseableHttpClient httpclient = HttpClientKit.instance();
-        CloseableHttpClient httpclient = HttpClientBuilder.create().setDefaultCookieStore(cookieStore).build();
-
-        HttpContext httpContext = new BasicHttpContext();
+        CloseableHttpClient httpclient = HttpClientKitNew.instanceNoRedirect();
 
         String res="";
         try {
             HttpGet httpGet = new HttpGet(builder.build());
-            CloseableHttpResponse response = httpclient.execute(httpGet,httpContext);
-            System.out.println(ReflectionToStringBuilder.toString(httpContext));
-            mergeCookies( (BasicCookieStore) httpContext.getAttribute("http.cookie-store"));
-            res= getResponse(response);
-            closeResponse(response);
-            return res;
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally {
-            closeHttpClient(httpclient);
-        }
-        return res;
-    }
-    public static String doGetAndNoRedirectSaveCookie(String url, Map<String,String> params){
-
-        URIBuilder builder = null;
-        try {
-            builder = new URIBuilder(url);
-            if(params!=null && params.size()>0){
-                List<NameValuePair> nvps = new ArrayList<>();
-                for (String key : params.keySet()) {
-                    nvps.add(new BasicNameValuePair(key, params.get(key)));
-                }
-                builder.setParameters(nvps);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        CloseableHttpClient httpclient = HttpClientBuilder.create().setDefaultCookieStore(cookieStore).disableRedirectHandling().build();
-//        CloseableHttpClient httpclient = HttpClients.createDefault();
-//        CloseableHttpClient httpclient = HttpClientKit.instance();
-        HttpContext httpContext = new BasicHttpContext();
-
-        String res="";
-        try {
-            HttpGet httpGet = new HttpGet(builder.build());
-            CloseableHttpResponse response = httpclient.execute(httpGet,httpContext);
-            System.out.println(ReflectionToStringBuilder.toString(httpContext));
-            mergeCookies( (BasicCookieStore) httpContext.getAttribute("http.cookie-store"));
+            CloseableHttpResponse response = httpclient.execute(httpGet,context);
             res= getResponse(response);
             closeResponse(response);
             return res;
@@ -167,10 +150,7 @@ public class HttpClientKit {
 
     public static String doPost(String url,StringEntity stringEntity){
 
-//        CloseableHttpClient httpclient =  HttpClients.createDefault();
-//        CloseableHttpClient httpclient = HttpClientKit.instance();
-        CloseableHttpClient httpclient = HttpClientBuilder.create().setDefaultCookieStore(cookieStore).build();
-
+        CloseableHttpClient httpclient = HttpClientKitNew.instance();
 
         String res = "";
         try {
@@ -178,7 +158,7 @@ public class HttpClientKit {
             if(stringEntity!=null){
                 httpPost.setEntity(stringEntity);
             }
-            CloseableHttpResponse response = httpclient.execute(httpPost);
+            CloseableHttpResponse response = httpclient.execute(httpPost,context);
             res= getResponse(response);
             closeResponse(response);
         } catch (IOException e) {
@@ -205,11 +185,11 @@ public class HttpClientKit {
             e.printStackTrace();
         }
 
-//        CloseableHttpClient httpclient = HttpClientKit.instance();
-        CloseableHttpClient httpclient =  HttpClients.createDefault();
+        CloseableHttpClient httpclient = HttpClientKitNew.instance();
+//        CloseableHttpClient httpclient =  HttpClients.createDefault();
         try {
             HttpGet httpGet = new HttpGet(builder.build());
-            CloseableHttpResponse response = httpclient.execute(httpGet);
+            CloseableHttpResponse response = httpclient.execute(httpGet,context);
             getFileResponse(response,fileSavePath);
             closeResponse(response);
         }catch (Exception e){
@@ -258,11 +238,11 @@ public class HttpClientKit {
 
     private static void closeHttpClient( CloseableHttpClient httpclient){
         System.out.println("关闭"+httpclient);
-//        try {
-//            httpclient.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            httpclient.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 //
 //    private static void setCookieStore(HttpResponse httpResponse) {
@@ -319,33 +299,26 @@ public class HttpClientKit {
 //        return headers;
 //    }
 
-    static {
+
+    private static PoolingHttpClientConnectionManager createDefaultConnectionManager(){
+        PoolingHttpClientConnectionManager connectionManager = null;
         try {
-            httpClient_ = HttpClients.custom()
-                    .setConnectionManager(createDefaultConnectionManager())
-                    .setDefaultRequestConfig(createDefaultRequestConfig())
-                    .setDefaultCookieStore(cookieStore)
+            System.setProperty ("jsse.enableSNIExtension", "false");    //防止https请求出错  see: //http://stackoverflow.com/questions/7615645/ssl-handshake-alert-unrecognized-name-error-since-upgrade-to-java-1-7-0
+            ConnectionSocketFactory socketFactory = PlainConnectionSocketFactory.getSocketFactory();
+            LayeredConnectionSocketFactory sslSocketFactory = SSLConnectionSocketFactory.getSocketFactory();
+            Registry<ConnectionSocketFactory> registry = RegistryBuilder.<ConnectionSocketFactory>create()
+                    .register("http", socketFactory)
+                    .register("https", sslSocketFactory)
                     .build();
-        }
-        catch (Exception e) {
+
+            connectionManager = new PoolingHttpClientConnectionManager(registry);
+            connectionManager.setMaxTotal(200);
+            connectionManager.setDefaultMaxPerRoute(20);
+            HttpHost localhost = new HttpHost(InetAddress.getLocalHost());
+            connectionManager.setMaxPerRoute(new HttpRoute(localhost), 50);
+        } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-    }
-
-    private static PoolingHttpClientConnectionManager createDefaultConnectionManager() throws UnknownHostException{
-        System.setProperty ("jsse.enableSNIExtension", "false");    //防止https请求出错  see: //http://stackoverflow.com/questions/7615645/ssl-handshake-alert-unrecognized-name-error-since-upgrade-to-java-1-7-0
-        ConnectionSocketFactory socketFactory = PlainConnectionSocketFactory.getSocketFactory();
-        LayeredConnectionSocketFactory sslSocketFactory = SSLConnectionSocketFactory.getSocketFactory();
-        Registry<ConnectionSocketFactory> registry = RegistryBuilder.<ConnectionSocketFactory>create()
-                .register("http", socketFactory)
-                .register("https", sslSocketFactory)
-                .build();
-
-        PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager(registry);
-        connectionManager.setMaxTotal(200);
-        connectionManager.setDefaultMaxPerRoute(20);
-        HttpHost localhost = new HttpHost(InetAddress.getLocalHost());
-        connectionManager.setMaxPerRoute(new HttpRoute(localhost), 50);
         return connectionManager;
     }
 
