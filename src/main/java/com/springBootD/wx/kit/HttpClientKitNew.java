@@ -1,5 +1,6 @@
 package com.springBootD.wx.kit;
 
+import com.alibaba.fastjson.JSON;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.*;
 import org.apache.http.client.CookieStore;
@@ -105,26 +106,14 @@ public class HttpClientKitNew {
 //        CloseableHttpClient httpclient = HttpClients.createDefault();
         CloseableHttpClient httpclient = HttpClientKitNew.instance();
 
-        String res="";
-        try {
-            HttpGet httpGet = new HttpGet(makeURI(url,params));
-            CloseableHttpResponse response = httpclient.execute(httpGet,context);
-            res= getResponse(response);
-            closeResponse(response);
-            return res;
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally {
-            closeHttpClient(httpclient);
-        }
-        return res;
+        return doGetReal(httpclient,makeURI(url, params));
     }
 
     public static String doGetAndNoRedirect(String url, Map<String,String> params){
 
 //        CloseableHttpClient httpclient = HttpClients.createDefault();
         CloseableHttpClient httpclient = HttpClientKitNew.instanceNoRedirect();
-        return doGet(httpclient,makeURI(url, params));
+        return doGetReal(httpclient,makeURI(url, params));
 
     }
 
@@ -203,7 +192,7 @@ public class HttpClientKitNew {
         String res=null;
         try {
             HttpEntity entity = response.getEntity();
-            res= EntityUtils.toString(entity, "UTF8");
+            res= EntityUtils.toString(entity, "utf-8");
             EntityUtils.consume(entity);
         } catch (Exception e){
             e.printStackTrace();
@@ -237,6 +226,18 @@ public class HttpClientKitNew {
         }
         return null;
     }
+
+    public static void saveCookie(){
+
+        List<Cookie> cookieList = cookieStore.getCookies();
+        for(Cookie cookie:cookieList){
+            System.out.println(cookie.toString());
+            System.out.println(JSON.toJSONString(cookie));
+        }
+        System.out.println(cookieStore);
+        System.out.println(JSON.toJSONString(cookieStore));
+    }
+
 
     private static List<Header> createDefaultHeader(String referer,String userAgent) {
         ArrayList<Header> headers = new ArrayList<>();

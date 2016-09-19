@@ -220,6 +220,8 @@ public class WebWxServiceTan {
         String allUserStr = HttpClientKitNew.doGet(allUserUrl,allUserParam);
         System.out.println(""+allUserStr);
 
+        HttpClientKitNew.saveCookie();
+
     }
 
 }
