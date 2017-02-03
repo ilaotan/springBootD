@@ -10,8 +10,6 @@ package com.springBootD.application.system.dao;
 
 import com.springBootD.application.system.entity.BlogEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 
 public interface BlogDao extends JpaRepository<BlogEntity, Long>{
