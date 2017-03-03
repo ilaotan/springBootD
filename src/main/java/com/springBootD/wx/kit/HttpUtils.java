@@ -11,6 +11,10 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.params.ClientPNames;
 import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.conn.scheme.PlainSocketFactory;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.PoolingClientConnectionManager;
 import org.apache.http.message.BasicNameValuePair;
@@ -29,18 +33,15 @@ import java.util.Map;
 
 /**
  * Created by tan on 2017/2/28.
- *
- * httpClient 4.2.X
- *
  */
 public class HttpUtils {
 
     private static Logger logger = LoggerFactory.getLogger(HttpUtils.class);
 
     private static final String UTF_8 = "UTF-8";
-    public  static final String tokenUrl = "";
-    public  static final String alarmUrl = "";
-    public  static final String driveInOutUrl = "";
+    public  static final String tokenUrl = "apiResource/token";
+    public  static final String alarmUrl = "deviceResource/devicePalpitate";
+    public  static final String driveInOutUrl = "deviceResource/carStatusChange";
 
     private static HttpClient instance = null;
 
@@ -60,7 +61,12 @@ public class HttpUtils {
         //在提交请求之前 测试连接是否可用
         params.setBooleanParameter(CoreConnectionPNames.STALE_CONNECTION_CHECK, true);
 
-        PoolingClientConnectionManager conMgr = new PoolingClientConnectionManager();
+
+        SchemeRegistry schReg = new SchemeRegistry();
+        schReg.register(new Scheme("http", 80, PlainSocketFactory.getSocketFactory()));
+        schReg.register(new Scheme("https", 443, SSLSocketFactory.getSocketFactory()));
+
+        PoolingClientConnectionManager conMgr = new PoolingClientConnectionManager(schReg);
         conMgr.setMaxTotal(200); //设置整个连接池最大连接数 根据自己的场景决定
         //是路由的默认最大连接（该值默认为2），限制数量实际使用DefaultMaxPerRoute并非MaxTotal。
         //设置过小无法支持大并发(ConnectionPoolTimeoutException: Timeout waiting for connection from pool)，路由是对maxTotal的细分。
