@@ -16,7 +16,7 @@ public class CacheConfig {
 	/*
  * 据shared与否的设置,Spring分别通过CacheManager.create()或new CacheManager()方式来创建一个ehcache基地.
  */
-	@Bean
+	@Bean("cacheManagerFactory")
 	public EhCacheManagerFactoryBean cacheManagerFactory(){
 		EhCacheManagerFactoryBean cacheManagerFactoryBean = new EhCacheManagerFactoryBean ();
 		cacheManagerFactoryBean.setConfigLocation (new ClassPathResource("ehcache.xml"));

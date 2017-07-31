@@ -5,7 +5,7 @@
  */
 package com.springBootD.framework.utils;
 
-import com.springBootD.framework.common.Constants;
+import com.springBootD.framework.constant.Constants;
 import org.apache.commons.lang3.time.DateFormatUtils;
 
 import java.text.ParseException;

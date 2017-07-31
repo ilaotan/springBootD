@@ -2,7 +2,7 @@ package com.springBootD.application.demo.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.springBootD.application.demo.model.Country;
-import com.springBootD.application.demo.service.CountryService;
+import com.springBootD.application.demo.service.ICountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +19,7 @@ import java.util.List;
 public class CountryController {
 
     @Autowired
-    private CountryService countryService;
+    private ICountryService countryService;
 
     @RequestMapping
     public ModelAndView getAll(Country country) {

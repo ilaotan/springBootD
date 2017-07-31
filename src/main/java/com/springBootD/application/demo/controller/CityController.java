@@ -2,7 +2,7 @@ package com.springBootD.application.demo.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.springBootD.application.demo.model.City;
-import com.springBootD.application.demo.service.CityService;
+import com.springBootD.application.demo.service.ICityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +19,7 @@ import java.util.List;
 public class CityController {
 
     @Autowired
-    private CityService cityService;
+    private ICityService cityService;
 
     @RequestMapping
     public PageInfo<City> getAll(City city) {

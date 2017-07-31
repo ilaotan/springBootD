@@ -1,8 +1,9 @@
-package com.springBootD.application.demo.service;
+package com.springBootD.application.demo.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.springBootD.application.demo.dao.UserInfoMapper;
 import com.springBootD.application.demo.model.UserInfo;
+import com.springBootD.application.demo.service.IUserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +11,7 @@ import java.util.List;
 
 
 @Service
-public class UserInfoService {
+public class UserInfoService implements IUserInfoService{
 
     @Autowired
     private UserInfoMapper userInfoMapper;

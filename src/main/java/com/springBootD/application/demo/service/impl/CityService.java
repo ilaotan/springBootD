@@ -1,8 +1,9 @@
-package com.springBootD.application.demo.service;
+package com.springBootD.application.demo.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.springBootD.application.demo.dao.CityMapper;
 import com.springBootD.application.demo.model.City;
+import com.springBootD.application.demo.service.ICityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +11,7 @@ import java.util.List;
 
 
 @Service
-public class CityService {
+public class CityService implements ICityService{
 
     @Autowired
     private CityMapper cityMapper;

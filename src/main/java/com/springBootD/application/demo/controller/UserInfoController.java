@@ -2,7 +2,7 @@ package com.springBootD.application.demo.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.springBootD.application.demo.model.UserInfo;
-import com.springBootD.application.demo.service.UserInfoService;
+import com.springBootD.application.demo.service.IUserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +19,7 @@ import java.util.List;
 public class UserInfoController {
 
     @Autowired
-    private UserInfoService userInfoService;
+    private IUserInfoService userInfoService;
 
     @RequestMapping
     public PageInfo<UserInfo> getAll(UserInfo userInfo) {

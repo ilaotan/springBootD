@@ -1,8 +1,9 @@
-package com.springBootD.application.demo.service;
+package com.springBootD.application.demo.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.springBootD.application.demo.dao.CountryMapper;
 import com.springBootD.application.demo.model.Country;
+import com.springBootD.application.demo.service.ICountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
@@ -11,7 +12,7 @@ import java.util.List;
 
 
 @Service
-public class CountryService {
+public class CountryService implements ICountryService{
 
     @Autowired
     private CountryMapper countryMapper;

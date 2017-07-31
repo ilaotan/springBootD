@@ -1,4 +1,4 @@
-package com.springBootD.framework.common;
+package com.springBootD.framework.constant;
 
 
 /**   
@@ -59,5 +59,10 @@ public class Constants {
 	 * 往session里塞当前登录的用户名 
 	 */
 	public static final String LOGIN_USERNAME="username";
+
+	/**
+	 * 接口文档的菜单名
+	 */
+	public static final String API_MENU_NAME = "接口文档";
 	
 }
