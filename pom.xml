@@ -167,21 +167,43 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+
 	<build>
-	  <finalName>springBootD</finalName>
-	   <plugins>
-	   <!-- spring-boot-maven-plugin提供了直接运行项目的插件，我们可以直接mvn spring-boot:run运行。 -->
-	      <plugin>
-	          <groupId>org.springframework.boot</groupId>
-	          <artifactId>spring-boot-maven-plugin</artifactId>
-	      </plugin>
-		   <plugin>
-			   <groupId>org.apache.maven.plugins</groupId>
-			   <artifactId>maven-surefire-plugin</artifactId>
-			   <configuration>
-				   <useSystemClassLoader>false</useSystemClassLoader>
-			   </configuration>
-		   </plugin>
-	  </plugins>
+		<finalName>${artifactId}_${timestamp}</finalName>
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<!-- 打包时,输出文件加上日期后缀 -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>buildnumber-maven-plugin</artifactId>
+				<version>1.4</version>
+				<configuration>
+					<timestampFormat>yyyyMMdd_HHmm</timestampFormat>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>create-timestamp</goal>
+						</goals>
+					</execution>
+				</executions>
+				<inherited>false</inherited>
+			</plugin>
+		</plugins>
 	</build>
 </project>
