@@ -1,20 +1,16 @@
 package com.springBootD.framework.utils;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-
-import javax.servlet.http.HttpServletResponse;
-
 import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 
 /**   
- * @Description: Response工具类
- * @author Chenz
- * @date Nov 13, 2014 1:11:44 PM 
- * @version V1.0   
+ * Response工具类
 */
 public final class ResponseUtils {
 	public static final Logger log = LoggerFactory.getLogger(ResponseUtils.class);

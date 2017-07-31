@@ -11,8 +11,6 @@ import org.springframework.context.annotation.Configuration;
 /**
  * 本类是配置Swagger UI测试API功能
  * 
- * @author jiekechoo
- *
  */
 
 @Configuration

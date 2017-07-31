@@ -2,25 +2,22 @@ package com.springBootD.framework.common;
 
 
 /**   
- * @Description: 静态常量类
- * @author Chenz
- * @date Nov 13, 2014 1:21:25 PM 
- * @version V1.0   
+ * 静态常量类
 */
 public class Constants {
 	
 	/**
 	 * 系统后台登录地址
 	 */
-	public static final String ADMIN_LOGIN_URL = "/system/login";
+	public static final String ADMIN_LOGIN_URL = "/demo/login";
 	/**
 	 * 系统后台前缀
 	 */
-	public static final String ADMIN_PREFIX = "/system";
+	public static final String ADMIN_PREFIX = "/demo";
 	/**
 	 * 系统后台首页地址
 	 */
-	public static final String ADMIN_INDEX = "/system/admin";
+	public static final String ADMIN_INDEX = "/demo/admin";
 	
 	/**
 	 * 验证码名称

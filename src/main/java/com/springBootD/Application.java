@@ -1,38 +1,31 @@
 package com.springBootD;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.context.web.SpringBootServletInitializer;
-import org.springframework.context.annotation.Bean;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import javax.persistence.Basic;
-
 @SpringBootApplication
-public class Application extends SpringBootServletInitializer {
+public class Application extends WebMvcConfigurerAdapter {
 
-    @Bean
-    public LocalValidatorFactoryBean validator(){
-        return new LocalValidatorFactoryBean();
-    }
+    protected final static Logger logger = LoggerFactory.getLogger(Application.class);
 
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(Application.class);
-    }
+//    @Autowired
+//    GunsProperties gunsProperties;
+//
+//    /**
+//     * 增加swagger的支持
+//     */
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        if(gunsProperties.getSwaggerOpen()){
+//            registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+//            registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+//        }
+//    }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
-
-    //public static void main(String[] args) throws Exception {
-    //    SpringApplication app = new SpringApplication(Application.class);
-    //    //启动时的提示文字
-    //    app.setBannerMode(Banner.Mode.OFF);
-    //    app.run(args);
-    //}
-
 }
