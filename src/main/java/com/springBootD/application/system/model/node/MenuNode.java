@@ -299,8 +299,8 @@ public class MenuNode implements Comparable {
         }
 
         //如果关闭了接口文档,则不显示接口文档菜单
-        SpringBootDProperties gunsProperties = SpringContextHolder.getBean(SpringBootDProperties.class);
-        if (!gunsProperties.getSwaggerOpen()) {
+        SpringBootDProperties springBootDProperties = SpringContextHolder.getBean(SpringBootDProperties.class);
+        if (!springBootDProperties.getSwaggerOpen()) {
             List<MenuNode> menuNodesCopy = new ArrayList<>();
             for (MenuNode menuNode : menuNodes) {
                 if (Constants.API_MENU_NAME.equals(menuNode.getName())) {

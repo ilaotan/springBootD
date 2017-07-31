@@ -63,11 +63,11 @@ public class ShiroConfig {
      */
     @Bean
     @ConditionalOnProperty(prefix = "springBootD", name = "spring-session-open", havingValue = "false")
-    public DefaultWebSessionManager defaultWebSessionManager(CacheManager cacheShiroManager, SpringBootDProperties gunsProperties) {
+    public DefaultWebSessionManager defaultWebSessionManager(CacheManager cacheShiroManager, SpringBootDProperties springBootDProperties) {
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
         sessionManager.setCacheManager(cacheShiroManager);
-        sessionManager.setSessionValidationInterval(gunsProperties.getSessionValidationInterval() * 1000);
-        sessionManager.setGlobalSessionTimeout(gunsProperties.getSessionInvalidateTime() * 1000);
+        sessionManager.setSessionValidationInterval(springBootDProperties.getSessionValidationInterval() * 1000);
+        sessionManager.setGlobalSessionTimeout(springBootDProperties.getSessionInvalidateTime() * 1000);
         sessionManager.setDeleteInvalidSessions(true);
         sessionManager.setSessionValidationSchedulerEnabled(true);
         Cookie cookie = new SimpleCookie(ShiroHttpSession.DEFAULT_SESSION_ID_NAME);
