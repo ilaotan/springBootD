@@ -38,7 +38,7 @@ public class ShiroFactroy implements IShiro {
     }
 
     @Override
-    public User user(String account) {
+    public User getUserByAccount(String account) {
 
         User user = userMgrDao.getByAccount(account);
 
