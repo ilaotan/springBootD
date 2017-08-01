@@ -28,10 +28,10 @@ import java.util.List;
 public class ShiroFactroy implements IShiro {
 
     @Autowired
-    private UserMapper userMgrDao;
+    private UserMapper userMapper;
 
     @Autowired
-    private MenuMapper menuDao;
+    private MenuMapper menuMapper;
 
     public static IShiro me() {
         return SpringContextHolder.getBean(IShiro.class);
@@ -40,7 +40,7 @@ public class ShiroFactroy implements IShiro {
     @Override
     public User getUserByAccount(String account) {
 
-        User user = userMgrDao.getByAccount(account);
+        User user = userMapper.getByAccount(account);
 
         // 账号不存在
         if (null == user) {
@@ -78,7 +78,7 @@ public class ShiroFactroy implements IShiro {
 
     @Override
     public List<String> findPermissionsByRoleId(Integer roleId) {
-        List<String> resUrls = menuDao.getResUrlsByRoleId(roleId);
+        List<String> resUrls = menuMapper.getResUrlsByRoleId(roleId);
         return resUrls;
     }
 
