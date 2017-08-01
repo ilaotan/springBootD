@@ -28,25 +28,25 @@ public interface IConstantFactory {
     /**
      * 通过角色ids获取角色名称
      */
-    @Cacheable(value = Cache.CONSTANT, key = "'" + CacheKey.ROLES_NAME + "'+#roleIds")
+//    @Cacheable(value = Cache.CONSTANT, key = "'" + CacheKey.ROLES_NAME + "'+#roleIds")
     String getRoleName(String roleIds);
 
     /**
      * 通过角色id获取角色名称
      */
-    @Cacheable(value = Cache.CONSTANT, key = "'" + CacheKey.SINGLE_ROLE_NAME + "'+#roleId")
+//    @Cacheable(value = Cache.CONSTANT, key = "'" + CacheKey.SINGLE_ROLE_NAME + "'+#roleId")
     String getSingleRoleName(Integer roleId);
 
     /**
      * 通过角色id获取角色英文名称
      */
-    @Cacheable(value = Cache.CONSTANT, key = "'" + CacheKey.SINGLE_ROLE_TIP + "'+#roleId")
+//    @Cacheable(value = Cache.CONSTANT, key = "'" + CacheKey.SINGLE_ROLE_TIP + "'+#roleId")
     String getSingleRoleTip(Integer roleId);
 
     /**
      * 获取部门名称
      */
-    @Cacheable(value = Cache.CONSTANT, key = "'" + CacheKey.DEPT_NAME + "'+#deptId")
+//    @Cacheable(value = Cache.CONSTANT, key = "'" + CacheKey.DEPT_NAME + "'+#deptId")
     String getDeptName(Integer deptId);
 
     /**
