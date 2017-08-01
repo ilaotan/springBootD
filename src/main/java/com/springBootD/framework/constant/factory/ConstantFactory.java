@@ -195,11 +195,11 @@ public class ConstantFactory implements IConstantFactory {
      * 获取通知标题
      */
     @Override
-    public String getNoticeTitle(Integer dictId) {
+    public String getNoticeTitle(Integer noticeId) {
 //        if (dictId != null) {
 //            return "";
 //        } else {
-//            Notice notice = noticeMapper.selectByPrimaryKey(dictId);
+//            Notice notice = noticeMapper.selectByPrimaryKey(noticeId);
 //            if (notice == null) {
 //                return "";
 //            } else {
