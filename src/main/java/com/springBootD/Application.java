@@ -1,27 +1,34 @@
 package com.springBootD;
 
+import com.springBootD.framework.config.properties.SpringBootDProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.context.web.SpringBootServletInitializer;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @SpringBootApplication
-public class Application extends SpringBootServletInitializer {
+public class Application extends WebMvcConfigurerAdapter {
 
-    /*
-    * 如果不继承SpringBootServletInitializer 并覆盖configure 就不能直接扔到tomcat里运行
-    * */
+    protected final static Logger logger = LoggerFactory.getLogger(Application.class);
+
+    @Autowired
+    SpringBootDProperties springBootDProperties;
+
+    /**
+     * 增加swagger的支持
+     */
     @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(Application.class);
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        if(springBootDProperties.getSwaggerOpen()){
+            registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+            registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+        }
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
-//        SpringApplication app = new SpringApplication(Application.class);
-//        //启动时的提示文字
-//        app.setBannerMode(Banner.Mode.OFF);
-//        app.run(args);
     }
-
 }

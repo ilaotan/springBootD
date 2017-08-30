@@ -1,6 +1,5 @@
-# springBoot的练习之作
-
-#其他分支包含 shiro  mybatis 等的集成例子
+#springBootD
 
 
-运行 使用 mvn spring-boot:run
+此脚手架使用
+mybatis + Mapper + PageHelper
