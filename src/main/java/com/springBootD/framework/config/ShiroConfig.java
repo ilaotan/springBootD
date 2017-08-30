@@ -142,7 +142,7 @@ public class ShiroConfig {
          *
          * anon  不需要认证
          * authc 需要认证
-         * getUserByAccount  验证通过或RememberMe登录的都可以
+         * user  验证通过或RememberMe登录的都可以
          *
          */
         Map<String, String> hashMap = new HashMap<>();
