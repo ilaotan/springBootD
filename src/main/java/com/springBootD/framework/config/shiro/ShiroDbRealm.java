@@ -26,7 +26,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
             throws AuthenticationException {
         IShiro shiroFactory = ShiroFactroy.me();
         UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
-        User user = shiroFactory.user(token.getUsername());
+        User user = shiroFactory.getUserByAccount(token.getUsername());
         ShiroUser shiroUser = shiroFactory.shiroUser(user);
         SimpleAuthenticationInfo info = shiroFactory.info(shiroUser, user, super.getName());
         return info;

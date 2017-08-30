@@ -142,7 +142,7 @@ public class ShiroConfig {
          *
          * anon  不需要认证
          * authc 需要认证
-         * user  验证通过或RememberMe登录的都可以
+         * getUserByAccount  验证通过或RememberMe登录的都可以
          *
          */
         Map<String, String> hashMap = new HashMap<>();
@@ -150,7 +150,7 @@ public class ShiroConfig {
         hashMap.put("/login", "anon");
         hashMap.put("/global/sessionError", "anon");
         hashMap.put("/kaptcha", "anon");
-        hashMap.put("/**", "user");
+        hashMap.put("/**", "getUserByAccount");
         shiroFilter.setFilterChainDefinitionMap(hashMap);
         return shiroFilter;
     }

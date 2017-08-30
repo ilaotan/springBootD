@@ -17,7 +17,7 @@ public interface IShiro {
      *
      * @param account 账号
      */
-    User user(String account);
+    User getUserByAccount(String account);
 
     /**
      * 根据系统用户获取Shiro的用户
