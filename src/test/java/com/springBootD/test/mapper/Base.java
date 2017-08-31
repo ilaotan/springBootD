@@ -7,11 +7,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.springBootD.Application;
-import com.springBootD.ApplicationNoWeb;
 import org.junit.runner.RunWith;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {ApplicationNoWeb.class})
+@SpringBootTest(classes = {Application.class})
 public class Base {
 
     public final Logger logger = LoggerFactory.getLogger(this.getClass());
