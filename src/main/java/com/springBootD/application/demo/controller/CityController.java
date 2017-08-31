@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -40,7 +41,7 @@ public class CityController {
     }
 
     @RequestMapping(value = "/delete/{id}")
-    public ModelMap delete(@PathVariable Integer id) {
+    public ModelMap delete(@PathVariable Integer id, Optional<String> test) {
         ModelMap result = new ModelMap();
         cityService.deleteById(id);
         result.put("msg", "删除成功!");
