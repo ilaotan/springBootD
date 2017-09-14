@@ -11,6 +11,9 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.IdGenerator;
 
@@ -27,6 +30,8 @@ public class TestMapperTest extends Base {
 
     @Autowired
     private TestMapper testMapper;
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
     @org.junit.Test
@@ -238,36 +243,50 @@ public class TestMapperTest extends Base {
     @org.junit.Test
     public void testTime_delete_insert() {
 
-        List<String> idList1 = readTxtFile("D:\\ddd_temp2_2.txt");
+        List<String> idList1 = readTxtFile("D:\\eee_3_temp1.txt");
 
         Long time1 = System.currentTimeMillis();
         //先删再插入
         for (String id1 : idList1) {
-            Test test = testMapper.selectByPrimaryKey(id1);
-            test.setUpdateTime(new Date());
+//            Test test = testMapper.selectByPrimaryKey(id1);
+//            test.setUpdateTime(new Date());
+//            test.setUserName(DateUtils.formatDateTime(new Date()));
+//            int num = testMapper.deleteByPrimaryKey(id1);
+//            int num2 = testMapper.insert(test);
+
+            Test test = new Test(id1,DateUtils.formatDateTime(new Date()),DateUtils.formatDateTime(new Date()),3,new Date());
+//            test.setUpdateTime(new Date());
+//            test.setUserName(DateUtils.formatDateTime(new Date()));
             int num = testMapper.deleteByPrimaryKey(id1);
             int num2 = testMapper.insert(test);
+
         }
 
         Long final1 = System.currentTimeMillis() - time1;
 
-        System.out.println("delete_insert 随机Id数据量 "+idList1.size() + " 总耗时  " + final1);
+        logger.error("delete_insert 随机Id数据量 "+idList1.size() + " 总耗时  " + final1);
 
     }
     @org.junit.Test
     public void testTime_update() {
 
-        List<String> idList2 = readTxtFile("D:\\ddd_temp2_2.txt");
+        List<String> idList2 = readTxtFile("D:\\eee_3_temp1.txt");
 
         Long time2 = System.currentTimeMillis();
         for (String id2 : idList2) {
-            Test test = testMapper.selectByPrimaryKey(id2);
-            test.setUpdateTime(new Date());
+//            Test test = testMapper.selectByPrimaryKey(id2);
+//            test.setUpdateTime(new Date());
+//            test.setUserName(DateUtils.formatDateTime(new Date()));
+//            testMapper.updateByPrimaryKey(test);
+
+            Test test = new Test(id2,DateUtils.formatDateTime(new Date()),DateUtils.formatDateTime(new Date()),3,new Date());
             testMapper.updateByPrimaryKey(test);
+
+
         }
         Long final2 = System.currentTimeMillis() - time2;
 
-        System.out.println("update 随机Id数据量 "+idList2.size() + " 总耗时  " + final2);
+        logger.error("update 随机Id数据量 "+idList2.size() + " 总耗时  " + final2);
 
     }
 

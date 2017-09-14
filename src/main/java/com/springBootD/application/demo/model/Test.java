@@ -15,7 +15,7 @@ import tk.mybatis.mapper.annotation.NameStyle;
  */
 
 @NameStyle
-@Table(name = "test")
+@Table(name = "test3")
 public class Test {
 
     @Id

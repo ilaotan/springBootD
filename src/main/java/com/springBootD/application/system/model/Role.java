@@ -1,9 +1,10 @@
 package com.springBootD.application.system.model;
 
+import javax.persistence.Table;
+
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Table;
 
 /**
  * 角色表

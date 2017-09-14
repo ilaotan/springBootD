@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.tanlsh</groupId>
 	<artifactId>springBootD</artifactId>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>springBootD Maven Webapp</name>
 	<url>http://maven.apache.org</url>
@@ -11,7 +11,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
+		<java.version>1.7</java.version>
 		<kaptcha.version>2.3.2</kaptcha.version>
 		<beetl.version>2.7.15</beetl.version>
 		<swagger.version>2.2.2</swagger.version>
@@ -232,14 +232,25 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.1</version>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
 				</configuration>
 			</plugin>
 
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration><!-- 指定该Main Class为全局的唯一入口 -->
+					<mainClass>${main.startClass}</mainClass>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<!-- clean package -Dmaven.test.skip=true -Prepackage -->
+							<goal>repackage</goal><!--可以把依赖的包都打包到生成的Jar包中-->
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<!-- 打包时,输出文件加上日期后缀 -->
 			<plugin>
