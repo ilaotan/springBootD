@@ -69,7 +69,7 @@
 
 
 
-		<!-- 1.3特有的 When devtools is running, it detects change when you recompile your application and automatically refreshes -->
+		<!-- 支持热部署 idea下使用 ctrl+F9重新编译即可生效,注意看 META-INF下spring-devtools.properties里的配置  -->
 		 <dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-devtools</artifactId>
