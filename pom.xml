@@ -291,6 +291,8 @@
                             </server>
                             注意如果是idea下,需要手动到maven项 User Setting File的右侧勾选覆盖按钮.
                             如果提示.ssh/known_hosts 创建失败 请到对应目录使用cmd命令  mkdir .ssh   来创建.ssh文件夹
+                            如果项目分模块 idea下打包命令需要在Web模块下单独打包 比较恶心...
+                            clean package wagon:upload-single wagon:sshexec -Dmaven.test.skip=true
                      -->
                     <!-- 此处保持与settings.xml里的一致 -->
                     <serverId>serverId</serverId>
