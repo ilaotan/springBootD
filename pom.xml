@@ -337,6 +337,7 @@
                         <phase>install</phase>
                         <goals>
                             <goal>upload</goal>
+                            <goal>sshexec</goal>
                         </goals>
                         <configuration>
                             <!-- 此处保持与settings.xml里的一致 -->
@@ -347,19 +348,6 @@
                             <!-- 这个要改成你自己的ip 及你自己的项目存放路径 -->
                             <url>scp://centos@172.16.120.122</url>
                             <toDir>/home/centos/springboot/springbootD</toDir>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>execute-commands</id>
-                        <!-- 可以写 deploy 保证发布的服务的接口一致 -->
-                        <!-- 可以写 package 当你不想发布到私服上时 -->
-                        <phase>install</phase>
-                        <goals>
-                            <goal>sshexec</goal>
-                        </goals>
-                        <configuration>
-                            <serverId>serverId</serverId>
-                            <url>scp://centos@172.16.120.122</url>
                             <commands>
                                 <command><![CDATA[kill -9 `ps -ef|grep ${artifactId} | grep -v "grep"|awk '{print   $2}'`]]></command>
                                 <!-- cd到的目录需要你改成你自己的 这里尽量模拟用户的操作指令 -->
@@ -367,6 +355,8 @@
                             </commands>
                             <!-- 允许执行出错时继续往下执行 这里加上是因为command命令第一句kill时,如果进程不存在会报错 -->
                             <failOnError>false</failOnError>
+                            <!-- true为显示command执行结果 -->
+                            <displayCommandOutputs>true</displayCommandOutputs>
                         </configuration>
                     </execution>
                 </executions>
