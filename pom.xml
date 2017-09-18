@@ -334,7 +334,7 @@
                         <id>upload-jar</id>
                         <!-- 可以写 deploy 保证发布的服务的接口一致 -->
                         <!-- 可以写 package 当你不想发布到私服上时 -->
-                        <phase>package</phase>
+                        <phase>install</phase>
                         <goals>
                             <goal>upload</goal>
                         </goals>
@@ -353,7 +353,7 @@
                         <id>execute-commands</id>
                         <!-- 可以写 deploy 保证发布的服务的接口一致 -->
                         <!-- 可以写 package 当你不想发布到私服上时 -->
-                        <phase>package</phase>
+                        <phase>install</phase>
                         <goals>
                             <goal>sshexec</goal>
                         </goals>
