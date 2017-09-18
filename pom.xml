@@ -275,40 +275,103 @@
                 </executions>
                 <inherited>false</inherited>
             </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.codehaus.mojo</groupId>-->
+                <!--<artifactId>wagon-maven-plugin</artifactId>-->
+                <!--<version>1.0</version>-->
+                <!--<configuration>-->
+                    <!--&lt;!&ndash;-->
+                        <!--如果是简单的服务器登录配置 请参考官网  http://www.mojohaus.org/wagon-maven-plugin/usage.html-->
+                        <!--此处的注释是高级玩法.-->
+                        <!--如果服务器配置密钥登录 需要在maven的settings.xml里配置-->
+                             <!--<server>-->
+                              <!--<id>serverId</id>-->
+                              <!--<username>centos</username>-->
+                              <!--<privateKey>E://sonli//id_rsa.id_rsa</privateKey>-->
+                            <!--</server>-->
+                            <!--注意如果是idea下,需要手动到maven项 User Setting File的右侧勾选覆盖按钮.-->
+                            <!--如果提示.ssh/known_hosts 创建失败 请到对应目录使用cmd命令  mkdir .ssh   来创建.ssh文件夹-->
+                            <!--如果项目分模块 idea下打包命令需要在Web模块下单独打包 比较恶心...-->
+                            <!--clean package wagon:upload-single wagon:sshexec -Dmaven.test.skip=true-->
+                     <!--&ndash;&gt;-->
+                    <!--&lt;!&ndash; 此处保持与settings.xml里的一致 &ndash;&gt;-->
+                    <!--<serverId>serverId</serverId>-->
+                    <!--&lt;!&ndash; 文件名与web模块下 <build><finalName>里写的一致 &ndash;&gt;-->
+                    <!--<fromFile>target/${artifactId}_${timestamp}.jar</fromFile>-->
+                    <!--&lt;!&ndash; 这个要改成你自己的ip 及你自己的项目存放路径 &ndash;&gt;-->
+                    <!--<url>scp://centos@172.16.120.122/home/centos/springboot/springbootD</url>-->
+                    <!--<commands>-->
+                        <!--<command><![CDATA[kill -9 `ps -ef|grep ${artifactId}_ | grep -v "grep"|awk '{print   $2}'`]]></command>-->
+                        <!--&lt;!&ndash; cd到的目录需要你改成你自己的 这里尽量模拟用户的操作指令 &ndash;&gt;-->
+                        <!--<command><![CDATA[cd /home/centos/springboot/springbootD && sh /usr/sbin/springboot.sh ${artifactId}_${timestamp}.jar]]></command>-->
+                    <!--</commands>-->
+                    <!--&lt;!&ndash; 允许执行出错时继续往下执行 这里加上是因为command命令第一句kill时,如果进程不存在会报错 &ndash;&gt;-->
+                    <!--<failOnError>false</failOnError>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
+
+            <!-- 以上配置在分模块的情况下,打包web模块失败, 实际使用过程中  我配置了如下的参数  -->
+            <!--
+                       如果是简单的服务器登录配置 请参考官网  http://www.mojohaus.org/wagon-maven-plugin/usage.html
+                       此处的注释是高级玩法.
+                       如果服务器配置密钥登录 需要在maven的settings.xml里配置
+                            <server>
+                             <id>serverId</id>
+                             <username>centos</username>
+                             <privateKey>E://sonli//id_rsa.id_rsa</privateKey>
+                           </server>
+                           注意如果是idea下,需要手动到maven项 User Setting File的右侧勾选覆盖按钮.
+                           如果提示.ssh/known_hosts 创建失败 请到对应目录使用cmd命令  mkdir .ssh   来创建.ssh文件夹
+                           如果项目分模块 idea下打包命令需要在Web模块下单独打包 比较恶心...
+                           clean package wagon:upload-single wagon:sshexec -Dmaven.test.skip=true
+                    -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>wagon-maven-plugin</artifactId>
                 <version>1.0</version>
-                <configuration>
-                    <!--
-                        如果是简单的服务器登录配置 请参考官网  http://www.mojohaus.org/wagon-maven-plugin/usage.html
-                        此处的注释是高级玩法.
-                        如果服务器配置密钥登录 需要在maven的settings.xml里配置
-                             <server>
-                              <id>serverId</id>
-                              <username>centos</username>
-                              <privateKey>E://sonli//id_rsa.id_rsa</privateKey>
-                            </server>
-                            注意如果是idea下,需要手动到maven项 User Setting File的右侧勾选覆盖按钮.
-                            如果提示.ssh/known_hosts 创建失败 请到对应目录使用cmd命令  mkdir .ssh   来创建.ssh文件夹
-                            如果项目分模块 idea下打包命令需要在Web模块下单独打包 比较恶心...
-                            clean package wagon:upload-single wagon:sshexec -Dmaven.test.skip=true
-                     -->
-                    <!-- 此处保持与settings.xml里的一致 -->
-                    <serverId>serverId</serverId>
-                    <!-- 文件名与web模块下 <build><finalName>里写的一致 -->
-                    <fromFile>target/${artifactId}_${timestamp}.jar</fromFile>
-                    <!-- 这个要改成你自己的ip 及你自己的项目存放路径 -->
-                    <url>scp://centos@172.16.120.122/home/centos/springboot/springbootD</url>
-                    <commands>
-                        <command><![CDATA[kill -9 `ps -ef|grep ${artifactId}_ | grep -v "grep"|awk '{print   $2}'`]]></command>
-                        <!-- cd到的目录需要你改成你自己的 这里尽量模拟用户的操作指令 -->
-                        <command><![CDATA[cd /home/centos/springboot/springbootD && sh /usr/sbin/springboot.sh ${artifactId}_${timestamp}.jar]]></command>
-                    </commands>
-                    <!-- 允许执行出错时继续往下执行 这里加上是因为command命令第一句kill时,如果进程不存在会报错 -->
-                    <failOnError>false</failOnError>
-                </configuration>
+                <executions>
+                    <execution>
+                        <id>upload-jar</id>
+                        <!-- 可以写 deploy 保证发布的服务的接口一致 -->
+                        <!-- 可以写 package 当你不想发布到私服上时 -->
+                        <phase>package</phase>
+                        <goals>
+                            <goal>upload</goal>
+                        </goals>
+                        <configuration>
+                            <!-- 此处保持与settings.xml里的一致 -->
+                            <serverId>serverId</serverId>
+                            <fromDir>target</fromDir>
+                            <!-- 这里要匹配你打包出来的项目名字 -->
+                            <includes>*.jar</includes>
+                            <!-- 这个要改成你自己的ip 及你自己的项目存放路径 -->
+                            <url>scp://centos@172.16.120.122</url>
+                            <toDir>/home/centos/springboot/springbootD</toDir>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>execute-commands</id>
+                        <!-- 可以写 deploy 保证发布的服务的接口一致 -->
+                        <!-- 可以写 package 当你不想发布到私服上时 -->
+                        <phase>package</phase>
+                        <goals>
+                            <goal>sshexec</goal>
+                        </goals>
+                        <configuration>
+                            <serverId>serverId</serverId>
+                            <url>scp://centos@172.16.120.122</url>
+                            <commands>
+                                <command><![CDATA[kill -9 `ps -ef|grep ${artifactId} | grep -v "grep"|awk '{print   $2}'`]]></command>
+                                <!-- cd到的目录需要你改成你自己的 这里尽量模拟用户的操作指令 -->
+                                <command><![CDATA[cd /home/centos/springboot/springbootD && sh /usr/sbin/springboot.sh ${artifactId}_${timestamp}.jar]]></command>
+                            </commands>
+                            <!-- 允许执行出错时继续往下执行 这里加上是因为command命令第一句kill时,如果进程不存在会报错 -->
+                            <failOnError>false</failOnError>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
+
         </plugins>
 
         <extensions>
