@@ -230,7 +230,7 @@
 
 
     <build>
-        <finalName>${artifactId}_${timestamp}</finalName>
+        <finalName>${project.artifactId}_${timestamp}</finalName>
         <plugins>
 
             <plugin>
@@ -323,7 +323,8 @@
                            注意如果是idea下,需要手动到maven项 User Setting File的右侧勾选覆盖按钮.
                            如果提示.ssh/known_hosts 创建失败 请到对应目录使用cmd命令  mkdir .ssh   来创建.ssh文件夹
                            如果项目分模块 idea下打包命令需要在Web模块下单独打包 比较恶心...
-                           clean package wagon:upload-single wagon:sshexec -Dmaven.test.skip=true
+                           以下命令 替换 package 为 <phase>标签里的 就可以发布了
+                           clean package -Dmaven.test.skip=true
                     -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -347,11 +348,11 @@
                             <includes>*.jar</includes>
                             <!-- 这个要改成你自己的ip 及你自己的项目存放路径 -->
                             <url>scp://centos@172.16.120.122</url>
-                            <toDir>/home/centos/springboot/springbootD</toDir>
+                            <toDir>home/centos/springboot/springbootD</toDir>
                             <commands>
-                                <command><![CDATA[kill -9 `ps -ef|grep ${artifactId} | grep -v "grep"|awk '{print   $2}'`]]></command>
+                                <command><![CDATA[kill -9 `ps -ef|grep ${project.artifactId} | grep -v "grep"|awk '{print   $2}'`]]></command>
                                 <!-- cd到的目录需要你改成你自己的 这里尽量模拟用户的操作指令 -->
-                                <command><![CDATA[cd /home/centos/springboot/springbootD && sh /usr/sbin/springboot.sh ${artifactId}_${timestamp}.jar]]></command>
+                                <command><![CDATA[cd /home/centos/springboot/springbootD && sh /usr/sbin/springboot.sh ${project.artifactId}_${timestamp}.jar]]></command>
                             </commands>
                             <!-- 允许执行出错时继续往下执行 这里加上是因为command命令第一句kill时,如果进程不存在会报错 -->
                             <failOnError>false</failOnError>
