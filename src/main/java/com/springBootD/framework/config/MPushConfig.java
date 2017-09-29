@@ -9,7 +9,7 @@ import com.mpush.api.srd.ServiceDiscovery;
 import com.mpush.client.MPushClient;
 import com.mpush.client.push.PushClient;
 
-@Configuration
+//@Configuration
 public class MPushConfig {
 
 

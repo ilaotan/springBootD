@@ -31,19 +31,14 @@ import com.springBootD.application.demo.model.OfflineMsg;
 import com.springBootD.application.demo.service.MPushManager;
 import org.apache.commons.lang3.StringUtils;
 
-@RestController
-@RequestMapping("admin")
+//@RestController
+//@RequestMapping("admin")
 public class MPushController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private final AtomicLong msgIdSeq = new AtomicLong(1);//TODO 业务自己处理
 
-    @Resource
-    private PushSender mpusher;
-
-    @Resource
-    private ServiceDiscovery serviceDiscovery;
 
     @Resource
     private MPushManager mPushManager;
@@ -123,7 +118,7 @@ public class MPushController {
     }
 
     private void doSend(String userId, byte[] content, PushCallback callback) {
-        mpusher.send(new PushContext(content)
+        mPushManager.send(new PushContext(content)
                 .setUserId(userId)
                 .setCallback(callback)
         );
