@@ -58,13 +58,6 @@
     <dependencies>
 
         <dependency>
-            <groupId>com.github.mpusher</groupId>
-            <artifactId>mpush-client</artifactId>
-            <version>0.8.0</version>
-        </dependency>
-
-
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
