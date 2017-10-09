@@ -9,7 +9,9 @@
     <url>http://maven.apache.org</url>
 
     <properties>
-        <java.version>1.8</java.version>
+        <!-- 与使用maven-compiler-plugin一个效果 -->
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <kaptcha.version>2.3.2</kaptcha.version>
@@ -247,17 +249,6 @@
     <build>
         <finalName>${project.artifactId}_${timestamp}</finalName>
         <plugins>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                </configuration>
-            </plugin>
-
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -350,13 +341,13 @@
                         <id>upload-jar</id>
                         <!-- 可以写 deploy 保证发布的服务的接口一致 -->
                         <!-- 可以写 package 当你不想发布到私服上时 -->
-                        <phase>install</phase>
+                        <phase>deploy</phase>
                         <goals>
                             <goal>upload</goal>
                             <goal>sshexec</goal>
                         </goals>
                         <configuration>
-                            <!-- 此处保持与settings.xml里的一致 -->
+                            <!-- 此处保持与settings.xml里的一致 特别是当配置了密钥登录,只能在配置文件里设置 -->
                             <serverId>serverId</serverId>
                             <fromDir>target</fromDir>
                             <!-- 这里要匹配你打包出来的项目名字 -->
@@ -369,7 +360,7 @@
                                 <!-- cd到的目录需要你改成你自己的 这里尽量模拟用户的操作指令 -->
                                 <command><![CDATA[cd /home/centos/springboot/springbootD && sh /usr/sbin/springboot.sh ${project.artifactId}_${timestamp}.jar]]></command>
                             </commands>
-                            <!-- 允许执行出错时继续往下执行 这里加上是因为command命令第一句kill时,如果进程不存在会报错 -->
+                            <!-- false允许执行出错时继续往下执行 这里加上是因为command命令第一句kill时,如果进程不存在会报错 -->
                             <failOnError>false</failOnError>
                             <!-- true为显示command执行结果 -->
                             <displayCommandOutputs>true</displayCommandOutputs>
