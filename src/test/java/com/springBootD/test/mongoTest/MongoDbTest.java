@@ -19,7 +19,7 @@
 //import com.sonli.mpushAdmin.dao.PushLogRepository;
 //import com.sonli.mpushAdmin.model.PushLogM;
 //import com.sonli.mpushAdmin.sonliFramework.utils.DateUtils;
-//import com.sonli.mpushAdmin.sonliFramework.utils.UuidUtil;
+//import com.sonli.mpushAdmin.sonliFramework.utils.UuidUtils;
 //import org.junit.Test;
 //import test.com.sonli.Base;
 //
@@ -42,7 +42,7 @@
 //
 //    private PushLogM getPushLogM() {
 //        PushLogM pushLogM = new PushLogM();
-//        pushLogM.setId(UuidUtil.newid());
+//        pushLogM.setId(UuidUtils.newid());
 //        pushLogM.setName("xiaogou");
 //        pushLogM.setAge(33);
 //        pushLogM.setCreateTime(new Date());

@@ -39,7 +39,7 @@ import com.springBootD.framework.utils.support.StrKit;
 /**
  * 高频方法集合类
  */
-public class ToolUtil {
+public class ToolUtils {
     
     /**
      * 判断一个对象是否是时间类型

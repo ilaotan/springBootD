@@ -6,14 +6,14 @@ import java.time.format.DateTimeFormatter;
 /**
  * 基于 JDK 8 time包的时间工具类
  */
-public final class TimeUtil {
+public final class TimeUtils {
 
     /**
      * 获取默认时间格式: yyyy-MM-dd HH:mm:ss
      */
     private static final DateTimeFormatter DEFAULT_DATETIME_FORMATTER = TimeFormat.LONG_DATE_PATTERN_LINE.formatter;
 
-    private TimeUtil() {
+    private TimeUtils() {
         // no construct function
     }
 

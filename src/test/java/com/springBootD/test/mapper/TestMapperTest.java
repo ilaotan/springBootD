@@ -7,7 +7,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Writer;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -15,13 +14,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.IdGenerator;
 
 import com.google.common.collect.Lists;
 import com.springBootD.application.demo.dao.TestMapper;
 import com.springBootD.application.demo.model.Test;
 import com.springBootD.framework.utils.DateUtils;
-import com.springBootD.framework.utils.UuidUtil;
+import com.springBootD.framework.utils.UuidUtils;
 
 /**
  * @author tan20170813
@@ -98,9 +96,9 @@ public class TestMapperTest extends Base {
             List<String> temp3 = Lists.newArrayList();
             List<String> temp4 = Lists.newArrayList();
             for (int i = 0; i <= 9999999; i++) {
-//            Test test = new Test(UuidUtil.newid(),"aaa"+i%8,"bbb"+i%8,i%8,new Date());
+//            Test test = new Test(UuidUtils.newid(),"aaa"+i%8,"bbb"+i%8,i%8,new Date());
 //            testMapper.insert(test);
-                uuid = UuidUtil.newid();
+                uuid = UuidUtils.newid();
                 if (i % 49999 == 0 && i > 0) {
 
                     stringBuffer.append("('" + uuid + "', '" + "aaa" + i % 8 + "', '" + "bbb" + i % 7 + "', '" + i % 6 + "', '" + DateUtils.formatDateTime(new Date()) + "');");

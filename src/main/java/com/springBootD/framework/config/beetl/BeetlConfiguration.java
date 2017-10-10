@@ -8,7 +8,7 @@ public class BeetlConfiguration extends BeetlGroupUtilConfiguration {
 	public void initOther() {
 
 		groupTemplate.registerFunctionPackage("shiro", new ShiroExt());
-//		groupTemplate.registerFunctionPackage("tool", new ToolUtil());
+//		groupTemplate.registerFunctionPackage("tool", new ToolUtils());
 
 	}
 

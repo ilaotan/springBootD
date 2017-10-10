@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.google.common.collect.Lists;
 import com.springBootD.application.demo.dao.TestMapper;
 import com.springBootD.application.demo.model.Test;
-import com.springBootD.framework.utils.UuidUtil;
 
 /**
  * @author tan20170813

@@ -10,9 +10,9 @@ import com.springBootD.framework.exception.BizExceptionEnum;
 import com.springBootD.framework.exception.BussinessException;
 
 
-public class FileUtil extends org.apache.commons.io.FileUtils {
+public class FileUtils extends org.apache.commons.io.FileUtils {
 
-    private static Logger log = LoggerFactory.getLogger(FileUtil.class);
+    private static Logger log = LoggerFactory.getLogger(FileUtils.class);
 
     /**
      * NIO way

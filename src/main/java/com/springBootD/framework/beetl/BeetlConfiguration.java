@@ -1,6 +1,6 @@
 package com.springBootD.framework.beetl;
 
-import com.springBootD.framework.utils.ToolUtil;
+import com.springBootD.framework.utils.ToolUtils;
 import org.beetl.ext.spring.BeetlGroupUtilConfiguration;
 
 public class BeetlConfiguration extends BeetlGroupUtilConfiguration {
@@ -9,7 +9,7 @@ public class BeetlConfiguration extends BeetlGroupUtilConfiguration {
 	public void initOther() {
 
 		groupTemplate.registerFunctionPackage("shiro", new ShiroExt());
-		groupTemplate.registerFunctionPackage("tool", new ToolUtil());
+		groupTemplate.registerFunctionPackage("tool", new ToolUtils());
 
 	}
 

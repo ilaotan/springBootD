@@ -1,11 +1,8 @@
 package com.springBootD.test.mapper;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.Writer;
 import java.util.Date;
 import java.util.List;
@@ -14,9 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.common.collect.Lists;
 import com.springBootD.application.demo.dao.TestMapper;
-import com.springBootD.application.demo.model.Test;
 import com.springBootD.framework.utils.DateUtils;
-import com.springBootD.framework.utils.UuidUtil;
+import com.springBootD.framework.utils.UuidUtils;
 
 /**
  * @author tan20170813
@@ -50,7 +46,7 @@ public class TestMapperTest2 extends Base {
                 for (int i = 0; i <= 9999999; i++) {
 
 
-                    uuid = UuidUtil.newid();
+                    uuid = UuidUtils.newid();
 
                     stringBuffer.append(uuid + ",aaa_" + a + "_" + i + ",bbb" +  + a + "_" + i + "," + i % 6 + "," + DateUtils.formatDateTime(new Date()));
                     stringBuffer.append("\r\n");

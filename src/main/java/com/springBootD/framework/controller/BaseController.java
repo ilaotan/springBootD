@@ -17,9 +17,8 @@ import com.springBootD.framework.constant.enums.Order;
 import com.springBootD.framework.constant.tips.SuccessTip;
 import com.springBootD.framework.page.PageInfoBT;
 import com.springBootD.framework.page.PageReq;
-import com.springBootD.framework.utils.FileUtil;
+import com.springBootD.framework.utils.FileUtils;
 import com.springBootD.framework.utils.support.HttpKit;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 
 
@@ -113,7 +112,7 @@ public class BaseController {
      *
      */
     protected ResponseEntity<byte[]> renderFile(String fileName, String filePath) {
-        byte[] bytes = FileUtil.toByteArray(filePath);
+        byte[] bytes = FileUtils.toByteArray(filePath);
         return renderFile(fileName, bytes);
     }
 

@@ -8,9 +8,9 @@ import java.util.logging.Logger;
 /**
  * 获取系统环境变量工具类
  */
-public class EnvUtil {
+public class EnvUtils {
 
-    private static final Logger logger = Logger.getLogger("EnvUtil");
+    private static final Logger logger = Logger.getLogger("EnvUtils");
 
     private static Boolean OS_LINUX = null;
 
