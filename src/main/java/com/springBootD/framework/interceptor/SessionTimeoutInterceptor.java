@@ -18,7 +18,7 @@ import org.aspectj.lang.annotation.Pointcut;
  */
 @Aspect
 @Component
-@ConditionalOnProperty(prefix = "guns", name = "session-open", havingValue = "true")
+@ConditionalOnProperty(prefix = "springBootD", name = "session-open", havingValue = "true")
 public class SessionTimeoutInterceptor extends BaseController {
 
     @Pointcut("execution(* com.springBootD.application.*..controller.*.*(..))")
