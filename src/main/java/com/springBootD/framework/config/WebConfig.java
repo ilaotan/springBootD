@@ -115,15 +115,27 @@ public class WebConfig {
      */
     @Bean
     public DefaultKaptcha kaptcha() {
+
         Properties properties = new Properties();
+        //是否有边框 可选yes 或者 no
         properties.put("kaptcha.border", "no");
+        //边框颜色
         properties.put("kaptcha.border.color", "105,179,90");
+        //验证码文本字符颜色
         properties.put("kaptcha.textproducer.font.color", "blue");
-        properties.put("kaptcha.image.width", "125");
-        properties.put("kaptcha.image.height", "45");
+        //验证码文本字符大小
         properties.put("kaptcha.textproducer.font.size", "45");
-        properties.put("kaptcha.session.key", "code");
+        //验证码图片的宽度 默认200
+        properties.put("kaptcha.image.width", "125");
+        //验证码图片的高度 默认50
+        properties.put("kaptcha.image.height", "45");
+//        properties.put("kaptcha.session.key", "code");
+        //验证码文本字符长度  默认为5
         properties.put("kaptcha.textproducer.char.length", "4");
+        //文本集合，验证码值从此集合中获取
+        properties.put("kaptcha.textproducer.char.string","1234567890qwerasdfzxcv");
+
+        //验证码文本字体样式  默认为new Font("Arial", 1, fontSize), new Font("Courier", 1, fontSize)
         properties.put("kaptcha.textproducer.font.names", "宋体,楷体,微软雅黑");
         Config config = new Config(properties);
         DefaultKaptcha defaultKaptcha = new DefaultKaptcha();
