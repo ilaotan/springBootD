@@ -380,6 +380,44 @@
                 </plugins>
             </build>
         </profile>
+
+        <profile>
+            <!-- -->
+            <id>jarjar</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>jarjar-maven-plugin</artifactId>
+                        <version>1.9</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jarjar</goal>
+                                </goals>
+                                <configuration>
+                                    <overwrite>true</overwrite>
+                                    <includes>
+                                        <include>org.apache.commons:commons-lang3</include>
+                                    </includes>
+                                    <rules>
+                                        <rule>
+                                            <pattern>org.apache.commons.lang3.**</pattern>
+                                            <result>com.sonli.spush.codec.third.lang3.@1</result>
+                                        </rule>
+                                        <!--<keep>-->
+                                        <!--<pattern>com.sonli.spush.codec.third.**</pattern>-->
+                                        <!--</keep>-->
+                                    </rules>
+                                    <output>${project.build.directory}/springBootD_inOne.jar</output>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 
 </project>
