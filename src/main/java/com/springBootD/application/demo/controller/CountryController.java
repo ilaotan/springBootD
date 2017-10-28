@@ -5,6 +5,7 @@ import com.springBootD.application.demo.model.Country;
 import com.springBootD.application.demo.service.ICountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,6 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+
+import javax.validation.Valid;
 
 
 @Controller
@@ -64,4 +67,19 @@ public class CountryController {
         result.addObject("msg", msg);
         return result;
     }
+
+//    @RequestMapping(value = "/save2", method = RequestMethod.POST)
+    @RequestMapping(value = "/save2")
+    public ModelAndView save2(@Valid Country country, Errors errors) {
+        if (errors.hasErrors()) {
+            throw new RuntimeException("country验证失败" + errors.getAllErrors());
+        }
+        ModelAndView result = new ModelAndView("view");
+        String msg = country.getId() == null ? "新增成功!" : "更新成功!";
+        countryService.save(country);
+        result.addObject("country", country);
+        result.addObject("msg", msg);
+        return result;
+    }
+
 }
