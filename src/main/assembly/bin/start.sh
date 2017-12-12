@@ -1,7 +1,7 @@
 #!/bin/bash
 
-SERVER_NAME='springBootD'
-JAR_NAME='springBootD.jar'
+SERVER_NAME='${project.artifactId}'
+JAR_NAME='${project.artifactId}_${timestamp}.jar'
 cd `dirname $0`
 BIN_DIR=`pwd`
 cd ..

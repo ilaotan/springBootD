@@ -1,6 +1,6 @@
 echo off
 
-set APP_NAME=springBootD.jar
+set APP_NAME=${project.artifactId}_${timestamp}.jar
 set CONFIG= -Dlogging.path=../logs/ -Dlogging.config=../config/logback-spring.xml -Dspring.config.location=../config/application.properties
 
 set DEBUG_OPTS=
