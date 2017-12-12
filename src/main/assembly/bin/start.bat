@@ -1,11 +1,11 @@
 echo off
 
 set APP_NAME=springBootD.jar
-set CONFIG= -Dlogging.path=../logs -Dlogging.config=../config/logback-spring.xml -Dspring.config.location=../config/application.yml
+set CONFIG= -Dlogging.path=../logs/ -Dlogging.config=../config/logback-spring.xml -Dspring.config.location=../config/application.properties
 
 set DEBUG_OPTS=
 if ""%1"" == ""debug"" (
-   set DEBUG_OPTS= -Xloggc:../logs/gc.log -verbose:gc -XX:+PrintGCDetails -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=../logs 
+   set DEBUG_OPTS= -Xloggc:../logs/gc.log -verbose:gc -XX:+PrintGCDetails -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=../logs
    goto debug
 )
 

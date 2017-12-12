@@ -8,7 +8,7 @@ cd ..
 DEPLOY_DIR=`pwd`
 CONF_DIR=$DEPLOY_DIR/config
 # SERVER_PORT=`sed '/server.port/!d;s/.*=//' config/application.properties | tr -d '\r'`
-SERVER_PORT=`sed -nr '/port: [0-9]+/ s/.*port: +([0-9]+).*/\1/p' config/application.yml`
+SERVER_PORT=`sed -nr '/port: [0-9]+/ s/.*port: +([0-9]+).*/\1/p' config/application.properties`
 
 PIDS=`ps -f | grep java | grep "$CONF_DIR" |awk '{print $2}'`
 if [ "$1" = "status" ]; then	  
@@ -36,7 +36,7 @@ if [ -n "$SERVER_PORT" ]; then
     fi
 fi
 
-LOGS_DIR=$DEPLOY_DIR/logs
+LOGS_DIR=$DEPLOY_DIR/logs/
 if [ ! -d $LOGS_DIR ]; then
     mkdir $LOGS_DIR
 fi
